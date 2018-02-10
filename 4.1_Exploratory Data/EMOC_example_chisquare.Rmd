@@ -1,0 +1,66 @@
+---
+title: "EMOC_report"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## 匯入套件
+
+```{r}
+library(data.table)
+library(ggplot2)
+library(tableone)
+```
+
+## 二次轉診與單次轉診之比較
+
+EMOC_data為整理後表格，內容包含：
+
+1. 轉出、轉入醫院的基本資料（醫院代號、急救責任醫院等級、健保特約醫院等級、醫院地址、經緯度）
+2. 病患基本資料（年齡、性別、診斷、檢傷級數）
+
+以卡方檢定比較二次轉診與單次轉診之族群差異（使用tableone套件，資料排除離群值醫院），
+
+資料處理
+
+1. 二次轉診定義為：入院方式為「他院轉入」
+2. 檢傷級數_新：以檢傷等級1-2為「1-2級」，3-5為「3-5級」
+
+卡方檢定後之結果為
+
+1. 檢傷級數、轉出醫院急救責任等級、急診留置時間（分鐘）、轉診型態均有顯著差異
+2. 二次轉診的患者於轉院後急診留置時間較單次轉診者平均需多花費3小時
+
+
+```{r}
+#匯入資料
+EMOC_data<-fread('EMOC_v7.csv')
+EMOC_data$二次轉診<-""
+EMOC_data[入院方式=="他院轉入"]$二次轉診<-"二次轉診"
+EMOC_data[入院方式!="他院轉入"]$二次轉診<-"單次轉診"
+
+#排除離群值醫院的流水號
+Yida<-EMOC_data[排除==""][EMOC轉出醫院名稱=="義大"&EMOC接收醫院名稱=="義大癌治療醫院"]$EMOC流水號
+
+#整理欲分析資料
+compare_groups<-EMOC_data[!EMOC流水號%in%Yida][排除==""][,c(10,11,13,15,22,26,27,41,42,52),with = F]
+compare_groups$檢傷級數_新<-""
+compare_groups[檢傷級數%in%c('1','2')]$檢傷級數_新<-"1-2級"
+compare_groups[檢傷級數%in%c('3','4','5')]$檢傷級數_新<-"3-5級"
+
+compare_groups$急診留置時間_分鐘<-as.numeric(compare_groups$急診留置時間_分鐘)
+
+#設定欲分析變數型態（myVars為要分析的變數，catVars為類別行變數）
+myVars <- c("檢傷級數_新", "EMOC_轉出醫院急救責任醫院等級", "急診留置時間_分鐘", "轉診型態")
+catVars <- c("檢傷級數_新", "EMOC_轉出醫院急救責任醫院等級", "轉診型態")
+
+#建立列聯表
+groupcompare_tableone<-CreateTableOne(vars = myVars, strata = "二次轉診" , data =compare_groups
+                                      , factorVars = catVars)
+
+print(groupcompare_tableone)
+
+
+```
