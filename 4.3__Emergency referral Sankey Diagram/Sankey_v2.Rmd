@@ -1,0 +1,215 @@
+---
+title: "急診轉診流動分析 Sankey Diagram"
+output: html_notebook
+---
+
+<br>
+<br>
+
+###1. Sankey diagram: 入院方式 → 急救責任分級 → 轉診型態
+
+```{r, echo=TRUE, message=TRUE, warning=FALSE}
+
+### 使用資料: EMOC_v7.csv
+df = read.csv('EMOC_v7.csv', na = c('', 'NA'), stringsAsFactors = FALSE) # 21781 examples
+
+### Columns to use
+left_col = '入院方式'
+cen_col = 'EMOC_轉出醫院急救責任醫院等級'
+right_col = '轉診型態'
+
+### Set the labels
+unique_labs = do.call('c', sapply(c(left_col, cen_col, right_col), function(x) unique(df[, x])))
+unique_labs_ref = seq(1:length(unique_labs)) - 1
+names(unique_labs_ref) = unique_labs
+
+### Set the names of the starting point,the ending point and the values of links
+starts = c()
+ends = c()
+links = c()
+
+## The left part
+df_left = aggregate(as.formula(paste(right_col, '~', paste(left_col, cen_col, sep = '+'))), df, function(x) length(x))
+starts = c(starts, as.vector(sapply(as.vector(df_left[, 1]), function(x) unique_labs_ref[x])))
+ends = c(ends, as.vector(sapply(as.vector(df_left[, 2]), function(x) unique_labs_ref[x])))
+links = c(links, df_left[, 3])
+
+## The righgt part
+df_right = aggregate(as.formula(paste(left_col, '~', paste(cen_col, right_col, sep = '+'))), df, function(x) length(x))
+starts = c(starts, as.vector(sapply(as.vector(df_right[, 1]), function(x) unique_labs_ref[x])))
+ends = c(ends, as.vector(sapply(as.vector(df_right[, 2]), function(x) unique_labs_ref[x])))
+links = c(links, df_right[, 3])
+
+### Set the colors
+color_left_ref = c('rgba(213, 185, 0, 1)', 'rgba(135, 0, 0, 1)', 'rgba(0, 0, 0, 1)', 'rgba(17, 0, 140, 1)', 'rgba(0, 88, 191, 1)')
+names(color_left_ref) = unique(df[, left_col])
+color_cen_ref = c('rgba(53, 68, 73, 1)', 'rgba(235, 189, 135, 1)', 'rgba(57, 49, 47, 1)')
+names(color_cen_ref) = unique(df[, cen_col])
+color_right_ref = c('rgba(220, 20, 60, 1)', 'rgba(34, 139, 34, 1)', 'rgba(65, 105, 225, 1)')
+names(color_right_ref) = unique(df[, right_col])
+
+color_left = as.vector(color_left_ref[df_left[, 1]])
+color_right = as.vector(color_cen_ref[df_right[, 1]])
+color_node = as.vector(c(color_left_ref, color_cen_ref, color_right_ref)[unique_labs])
+
+alpha_set = 0.3
+
+### Plotting
+library(plotly)
+
+p <- plot_ly(
+  type = "sankey",
+  domain = c(
+    x =  c(0,1),
+    y =  c(0,1)
+  ),
+  orientation = "h",
+  valueformat = ".0f",
+  valuesuffix = " 人",
+  
+  node = list(
+    label = unique_labs,
+    color = color_node,
+    pad = 15,
+    thickness = 15,
+    line = list(
+      color = color_node,
+      width = 0.1
+    )
+  ),
+  
+  link = list(
+    source = starts,
+    target = ends,
+    value =  links,
+    color = c( gsub('1)', paste(alpha_set, ')', sep = ''), color_left),  gsub('1)', paste(alpha_set, ')', sep = ''), color_right))
+  )
+) %>% 
+  layout(
+    title = "入院方式 → 急救責任分級 → 轉診型態",
+    autosize = F, width = 1200, height = 600,
+    font = list(
+      size = 12
+    ),
+    xaxis = list(showgrid = F, zeroline = F, showticklabels = FALSE),
+    yaxis = list(showgrid = F, zeroline = F, showticklabels = FALSE)
+  )
+
+### Output
+htmlwidgets::saveWidget(as_widget(p), "Sankey_v1.html")
+p
+```
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+###2. Sankey diagram: 入院方式 → 急救責任分級 → 轉院原因 → 轉診型態
+
+```{r, echo=TRUE, message=TRUE, warning=FALSE}
+
+### Use the same data as the previous plot
+
+### Columns to use
+left_col = '入院方式'
+cen_col = 'EMOC_轉出醫院急救責任醫院等級'
+cen_2_col = 'EMOC轉院原因大類別'
+right_col = '轉診型態'
+
+### Set the labels
+unique_labs = do.call('c', sapply(c(left_col, cen_col, cen_2_col, right_col), function(x) unique(df[, x])))
+unique_labs_ref = seq(1:length(unique_labs)) - 1
+names(unique_labs_ref) = unique_labs
+
+### Set the names of the starting point, ending point and the values of links
+starts = c()
+ends = c()
+links = c()
+
+### The left part
+df_left = aggregate(as.formula(paste(right_col, '~', paste(left_col, cen_col, sep = '+'))), df, function(x) length(x))
+starts = c(starts, as.vector(sapply(as.vector(df_left[, 1]), function(x) unique_labs_ref[x])))
+ends = c(ends, as.vector(sapply(as.vector(df_left[, 2]), function(x) unique_labs_ref[x])))
+links = c(links, df_left[, 3])
+
+### The niddle part
+df_cen = aggregate(as.formula(paste(left_col, '~', paste(cen_col, cen_2_col, sep = '+'))), df, function(x) length(x))
+starts = c(starts, as.vector(sapply(as.vector(df_cen[, 1]), function(x) unique_labs_ref[x])))
+ends = c(ends, as.vector(sapply(as.vector(df_cen[, 2]), function(x) unique_labs_ref[x])))
+links = c(links, df_cen[, 3])
+
+### The righgt part
+df_right = aggregate(as.formula(paste(left_col, '~', paste(cen_2_col, right_col, sep = '+'))), df, function(x) length(x))
+starts = c(starts, as.vector(sapply(as.vector(df_right[, 1]), function(x) unique_labs_ref[x])))
+ends = c(ends, as.vector(sapply(as.vector(df_right[, 2]), function(x) unique_labs_ref[x])))
+links = c(links, df_right[, 3])
+
+### Set the colors
+color_left_ref = c('rgba(213, 185, 0, 1)', 'rgba(135, 0, 0, 1)', 'rgba(0, 0, 0, 1)', 'rgba(17, 0, 140, 1)', 'rgba(0, 88, 191, 1)')
+names(color_left_ref) = unique(df[, left_col])
+color_cen_ref = c('rgba(53, 68, 73, 1)', 'rgba(235, 189, 135, 1)', 'rgba(57, 49, 47, 1)')
+names(color_cen_ref) = unique(df[, cen_col])
+color_cen_2_ref = c('rgba(35, 49, 73, 1)', 'rgba(78, 114, 39, 1)', 'rgba(57, 55, 51, 1)')
+names(color_cen_2_ref) = unique(df[, cen_2_col])
+color_right_ref = c('rgba(220, 20, 60, 1)', 'rgba(34, 139, 34, 1)', 'rgba(65, 105, 225, 1)')
+names(color_right_ref) = unique(df[, right_col])
+
+color_left = as.vector(color_left_ref[df_left[, 1]])
+color_cen = as.vector(color_cen_ref[df_cen[, 1]])
+color_right = as.vector(color_cen_2_ref[df_right[, 1]])
+color_node = as.vector(c(color_left_ref, color_cen_ref, color_cen_2_ref, color_right_ref)[unique_labs])
+
+alpha_set = 0.3
+
+### Plotting
+library(plotly)
+
+p <- plot_ly(
+  type = "sankey",
+  domain = c(
+    x =  c(0,1),
+    y =  c(0,1)
+  ),
+  orientation = "h",
+  valueformat = ".0f",
+  valuesuffix = " 人",
+  
+  node = list(
+    label = unique_labs,
+    color = color_node,
+    pad = 15,
+    thickness = 15,
+    line = list(
+      color = color_node,
+      width = 0.1
+    )
+  ),
+  
+  link = list(
+    source = starts,
+    target = ends,
+    value =  links,
+    color = c( gsub('1)', paste(alpha_set, ')', sep = ''), color_left),
+               gsub('1)', paste(alpha_set, ')', sep = ''), color_cen),
+               gsub('1)', paste(alpha_set, ')', sep = ''), color_right))
+  )
+) %>% 
+  layout(
+    title = "入院方式 → 急救責任分級 → 轉院原因 → 轉診型態",
+    autosize = F, width = 1200, height = 600,
+    font = list(
+      size = 12
+    ),
+    xaxis = list(showgrid = F, zeroline = F, showticklabels = FALSE),
+    yaxis = list(showgrid = F, zeroline = F, showticklabels = FALSE)
+  )
+
+### Output
+htmlwidgets::saveWidget(as_widget(p), "Sankey_v2.html")
+p
+```
+<br>
+<br>
