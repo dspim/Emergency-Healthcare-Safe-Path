@@ -1,0 +1,92 @@
+---
+title: "EMOC資料（轉診人數）-- 探索性分析"
+author: "黃軍元, Tony Huang"
+date: "2017年11月9日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> #### __此部分為EMOC資料分析程式碼，主要分析內容為：__
+1. #### 轉診人數疊層直條圖（依據檢傷級數；依據年份）
+2. #### 轉診人數折線圖（依據年份）
+
+- ### __匯入資料__
+#### EMOC_v7（EMOC最新版本資料） 
+```{r include = FALSE}
+EMOC_v7 <- read.csv("c:/Users/user/Desktop/D4SG/result/EMOC-EDA/EMOC_v7.csv", header = TRUE, sep = ",")
+```
+
+- ### __匯入套件__
+```{r}
+library(reshape2)
+library(plyr)
+library(ggplot2)
+library(gridExtra)
+```
+
+- ### __資料處理__
+1. #### __移除"排除"欄位中排除的資料__
+```{r}
+EMOC_v7$排除[EMOC_v7$排除 != "排除"] <- NA
+EMOC_v7_Kaoshiung <- subset(EMOC_v7, (is.na(EMOC_v7[,"排除"])))
+```
+2. #### __移除"轉出醫院名稱"欄位中"義大"及"義大癌治療醫院"的資料__
+#### 因為此兩家醫院轉院特性與其他醫院不同，暫不加入分析
+```{r}
+EMOC_v7_Kaoshiung_remove <-  EMOC_v7_Kaoshiung[which(EMOC_v7_Kaoshiung$EMOC轉出醫院名稱 != "義大" 
+                                                     & EMOC_v7_Kaoshiung$EMOC轉出醫院名稱 !=
+                                                     "義大癌治療醫院"), ]
+```
+3. #### __圖表使用資料處理__
+```{r}
+prop_EMOC_v7_Kaoshiung_remove_year <- melt(table(EMOC_v7_Kaoshiung_remove$轉診型態, EMOC_v7_Kaoshiung_remove$檢傷級數分類, EMOC_v7_Kaoshiung_remove$年份))
+prop_EMOC_v7_Kaoshiung_remove_year <- ddply(prop_EMOC_v7_Kaoshiung_remove_year,.(Var3,
+                                            Var2),transform,prop=value/sum(value))
+prop_EMOC_v7_Kaoshiung_remove_year$Var1 <- revalue(prop_EMOC_v7_Kaoshiung_remove_year$Var1,
+                                                   c("上轉"="上轉"))
+prop_EMOC_v7_Kaoshiung_remove_year$Var1 <- revalue(prop_EMOC_v7_Kaoshiung_remove_year$Var1,
+                                                   c("下轉"="下轉"))
+prop_EMOC_v7_Kaoshiung_remove_year$Var1 <- revalue(prop_EMOC_v7_Kaoshiung_remove_year$Var1,
+                                                   c("平轉"="平轉"))
+
+```
+
+- ### __轉診人數疊層直條圖__
+
+```{r}
+bar_combine<- ggplot(data = EMOC_v7_Kaoshiung_remove, aes(x = EMOC_v7_Kaoshiung_remove$檢傷級數分類)) +
+  geom_bar(aes(fill = EMOC_v7_Kaoshiung_remove$轉診型態)) + 
+  scale_fill_discrete(name = "轉診型態") +
+  ggtitle("轉診人數 (Overall)") +
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold")) +
+  xlab("檢傷級數分類")
+
+bar_year_combine<- ggplot(data = EMOC_v7_Kaoshiung_remove, aes(x = EMOC_v7_Kaoshiung_remove$檢傷級數分類)) +
+  geom_bar(aes(fill = EMOC_v7_Kaoshiung_remove$轉診型態)) +
+  facet_wrap(~年份) +
+  scale_fill_discrete(name = "轉診型態") +
+  ggtitle("轉診人數 (年份)") +
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold")) +
+  xlab("檢傷級數分類")
+
+grid.arrange(bar_combine, bar_year_combine, ncol=2)
+```
+
+- ### __轉診人數折線圖（依據年份）__
+
+```{r}
+ggplot(prop_EMOC_v7_Kaoshiung_remove_year, aes(as.factor(Var3), prop , group = Var1, colour = Var1))  +   facet_wrap(~Var2) +
+  coord_cartesian(ylim=c(0, 1)) +
+  geom_point(size = 4.2, shape = 21, fill = "white") + 
+  geom_line(size = 1.3) +
+  ggtitle("檢傷級數分類") +
+  theme(plot.title = element_text(hjust = 0.5, size = 18, face = "bold")) +
+  scale_color_discrete("轉診型態") +
+  xlab("轉診年份") 
+```
+
+
+

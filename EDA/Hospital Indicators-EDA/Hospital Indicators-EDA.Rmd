@@ -1,0 +1,78 @@
+---
+title: "醫院指標--探索性分析（EDA）"
+author: "黃軍元, Tony Huang"
+date: "2017年11月8日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> #### __此部分為醫院指標分析程式碼，主要分析內容為：__
+1. #### 各醫院指標分布圖及box-plot
+2. #### 依醫院分級的醫院指標分布圖
+* #### __分析結果及解釋皆整理於--醫院指標EDA.ppt中__
+
+- ### __匯入資料__
+#### Hospital_Total_Index_merge.csv（醫院分級及醫院指標合併資料） 
+```{r include = FALSE}
+Hospital_Total_Index_merge <- read.csv("c:/Users/user/Desktop/D4SG/result/醫院指標-EDA/Hospital_Total_Index_merge.csv", header = TRUE)
+```
+
+- ### __匯入套件__
+
+```{r}
+library(ggplot2)
+```
+
+- ### __各欄位名稱__
+```{r}
+names(Hospital_Total_Index_merge)
+```
+
+- ### __計算各指標欄位遺失值比率__
+```{r}
+round(sapply(Hospital_Total_Index_merge[,6:15], function(x)sum(is.na(x)))/279,digits=3)
+```
+
+- ### __畫出各醫院指標分布圖__
+##### __更改`aes(x = "出院後三日以內同院所再急診率")`畫出各指標變數分布圖，更改`bins = 15`更改組距__
+```{r}
+ggplot(aes(x = 出院後三日以內同院所再急診率), data = Hospital_Total_Index_merge) + 
+  geom_histogram(bins = 15) + 
+  scale_x_continuous(limits = c(0, 0.05), breaks = seq(0, 0.05, .005)) 
+```
+
+```{r echo = FALSE}
+round(summary(Hospital_Total_Index_merge$出院後三日以內同院所再急診率),3)
+```
+
+
+- ### __醫院指標分布圖（依照急救責任醫院等級劃分）__
+##### __更改`aes(x = "出院後三日以內同院所再急診率")`畫出各指標變數分布圖，更改`bins = 15`更改組距__
+```{r}
+ggplot(aes(x = 出院後三日以內同院所再急診率), data = Hospital_Total_Index_merge) + 
+  geom_histogram(bins = 15) + 
+  scale_x_continuous(limits = c(0, 0.05), breaks = seq(0, 0.05, .005)) +       #將超過0.5視為離群值 
+  facet_wrap(~急救責任醫院等級) #分成各類別
+```
+
+- ### __醫院指標疊層分布圖（依照急救責任醫院等級劃分）__
+##### __更改`aes(x = "出院後三日以內同院所再急診率")`畫出各指標變數分布圖，更改`bins = 15`更改組距__
+```{r}
+ggplot(aes(x = 出院後三日以內同院所再急診率), data = Hospital_Total_Index_merge) + 
+  geom_freqpoly(aes(color = 急救責任醫院等級), bins = 15) + 
+  scale_x_continuous(limits = c(0, 0.05), breaks = seq(0, 0.05, .005)) 
+```
+
+- ### __醫院指標box-plot__
+```{r}
+qplot(x = 急救責任醫院等級, y = 出院後三日以內同院所再急診率,
+      data = Hospital_Total_Index_merge, geom = "boxplot") +
+      stat_summary(fun.y = mean, geom = "point", shape = 4)
+```
+
+```{r}
+by(Hospital_Total_Index_merge$出院後三日以內同院所再急診率, Hospital_Total_Index_merge$急救責任醫院等級, summary)
+```
