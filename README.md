@@ -62,7 +62,7 @@ EMOC_data為整理後表格，內容包含：
 
 *Contributor: [tony50207](https://github.com/tony50207)*
 
-EMOC資料（轉診人數）EDA
+#### EMOC資料（轉診人數）EDA
 
 -轉診人數疊層直條圖
 
@@ -74,7 +74,7 @@ EMOC資料（轉診人數）EDA
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
 
-醫院指標EDA
+#### 醫院指標EDA
 
 -各醫院指標box-plot
 
