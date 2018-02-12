@@ -20,7 +20,9 @@ EMOC為[高雄市緊急醫療資訊整合中心](http://emoc.org.tw/emoc/index.p
 
 ## EDA
 
--
+此部分為醫院指標分析程式碼，主要分析內容為：
+-各醫院指標分布圖及box-plot
+-依醫院分級的醫院指標分布圖
 詳細分析:[R Markdown](EDA/EMOC-EDA/EMOC-EDA.html)
 
 詳細分析:[R Markdown](EDA/Hospital%20Indicators-EDA/Hospital%20Indicators-EDA.html)
