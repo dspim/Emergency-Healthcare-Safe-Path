@@ -19,7 +19,8 @@ EMOC為[高雄市緊急醫療資訊整合中心](http://emoc.org.tw/emoc/index.p
 
 ## EDA
 
-###此部分為醫院指標分析程式碼，主要分析內容為：
+### 此部分為醫院指標分析程式碼，主要分析內容為：
+
 -各醫院指標分布圖及box-plot
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
