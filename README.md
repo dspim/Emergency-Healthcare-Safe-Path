@@ -2,7 +2,7 @@
 
 ## 4.1 EMOC資料探索  
 
-*Contributor: [Yu-Lien Shih](@yulienshih)*
+*Contributor: [Yu-Lien Shih](https://github.com/yulienshih)*
 
 EMOC為[高雄市緊急醫療資訊整合中心](http://emoc.org.tw/emoc/index.php)。
 此部分為二次轉診與單次轉診之比較分析
@@ -32,19 +32,23 @@ EMOC_data為整理後表格，內容包含：
 
 ## 4.3 急診轉診Sankey Diagram
 
-*Contributor: [Xniper](@lwkuant)*
+*Contributor: [Xniper](https://github.com/lwkuant)*
 
 ### 此部分為醫院指標分析程式碼，主要分析內容為：
 
 -入院方式 → 急救責任分級 → 轉診型態
 
+![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey1.png)
+
 -入院方式 → 急救責任分級 → 轉院原因 → 轉診型態
+
+![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey2.png)
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.3__Emergency%20referral%20Sankey%20Diagram/Sankey_v2.nb.html)
 
 ## 4.7.1 急診轉診地圖
 
-*Contributor: [Daniel Hsu](@nightheronry)*
+*Contributor: [Daniel Hsu](https://github.com/nightheronry)*
 
 藉由[R Shiny](https://shiny.rstudio.com/)框架將高雄市104~107年間，醫院間的急診轉診人數以地圖方式呈現。
 ![104~107高雄市醫院間急診轉診人數地圖](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.7_Emergency%20referral%20pathways%20analysis/img/map.PNG)
@@ -55,20 +59,25 @@ EMOC_data為整理後表格，內容包含：
 
 ## EMOC資料（轉診人數）、醫院指標
 
-*Contributor: [tony50207](@tony50207)*
+*Contributor: [tony50207](https://github.com/tony50207)*
 
 EMOC資料（轉診人數）EDA
 
 -轉診人數疊層直條圖
 
+![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/stacked_bar_chart.png)
+
 -轉診人數折線圖
+
+![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/line_chart.png)
+
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
 
 醫院指標EDA
 
--依醫院分級的醫院指標分布圖
+-各醫院指標box-plot
 
--各醫院指標分布圖及box-plot
+![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/box_plot.png)
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/Hospital%20Indicators-EDA/Hospital%20Indicators-EDA.html)
 
