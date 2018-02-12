@@ -38,11 +38,11 @@ EMOC_data為整理後表格，內容包含：
 
 -入院方式 → 急救責任分級 → 轉診型態
 
-![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey1.png)
+![sankey1](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey1.png)
 
 -入院方式 → 急救責任分級 → 轉院原因 → 轉診型態
 
-![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey2.png)
+![sankey2](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.3__Emergency%20referral%20Sankey%20Diagram/img/sankey2.png)
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.3__Emergency%20referral%20Sankey%20Diagram/Sankey_v2.nb.html)
 
@@ -65,11 +65,11 @@ EMOC資料（轉診人數）EDA
 
 -轉診人數疊層直條圖
 
-![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/stacked_bar_chart.png)
+![轉診人數疊層直條圖](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/stacked_bar_chart.png)
 
 -轉診人數折線圖
 
-![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/line_chart.png)
+![轉診人數折線圖](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/line_chart.png)
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
 
@@ -77,7 +77,7 @@ EMOC資料（轉診人數）EDA
 
 -各醫院指標box-plot
 
-![](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/box_plot.png)
+![box-plot](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/EDA/img/box_plot.png)
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/Hospital%20Indicators-EDA/Hospital%20Indicators-EDA.html)
 
