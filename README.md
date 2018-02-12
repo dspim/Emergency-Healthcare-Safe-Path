@@ -53,21 +53,23 @@ EMOC_data為整理後表格，內容包含：
 使用[Gephi](https://gephi.org/)，計算各醫院間的Indegree、Outdegree、Clustering coefficient、HITS等等指標，藉此觀察醫院間轉診的型態。
 ![104~107高雄市醫院間急診轉診網絡圖](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.7_Emergency%20referral%20pathways%20analysis/img/network.PNG)
 
-## EDA
-
-### 此部分為醫院指標分析程式碼，主要分析內容為：
+## EMOC資料（轉診人數）、醫院指標
 
 *Contributor: [tony50207](@tony50207)*
 
 EMOC資料（轉診人數）EDA
+
 -轉診人數疊層直條圖
+
 -轉診人數折線圖
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
 
 醫院指標EDA
 
 -依醫院分級的醫院指標分布圖
+
 -各醫院指標分布圖及box-plot
+
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/Hospital%20Indicators-EDA/Hospital%20Indicators-EDA.html)
 
 
