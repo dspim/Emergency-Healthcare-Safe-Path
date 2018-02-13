@@ -1,5 +1,5 @@
 # Emergency-Healthcare-Safe-Path
-
+![](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/cover.png)
 ## 4.1 EMOC資料探索  
 
 *Contributor: [Yu-Lien Shih](https://github.com/yulienshih)*
