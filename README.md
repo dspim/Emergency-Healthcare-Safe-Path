@@ -1,4 +1,14 @@
-# Emergency-Healthcare-Safe-Path
+
+
+<p align="center">
+<img src=https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/cover.png>
+ <br><br>
+<a>&nbsp;&nbsp;&nbsp;&nbsp;緊急醫療的處理首重於「適當時間將適當病人送至適當醫院」處置原則。</a>
+<a>然而，當病人醫療需求與提供之醫療資源無法在第一次就醫就媒合成功時，或可能會觸發院際轉診的行為。</a>
+<a>轉診行為有利有弊，或許可能讓病人得到更適切的醫療照護，但轉診過程所伴隨的潛在的風險，也應被仔細考慮。就整體社會安全網的系統觀點而言，轉診的浮現，在某種程度上也反應出緊急醫療過程中可能存在的照護缺口。若能釐清這問題，也許能讓我們對優化社區醫療配置與建構安全照護網絡有更明確的補強藍圖。</a>
+</p>
+
+觀看[完整報告](http://d4sg.org/emergency-medical-optimization/)
 
 ## 4.1 EMOC資料探索  
 
@@ -62,7 +72,7 @@ EMOC_data為整理後表格，內容包含：
 
 *Contributor: [tony50207](https://github.com/tony50207)*
 
-EMOC資料（轉診人數）EDA
+#### EMOC資料（轉診人數）EDA
 
 -轉診人數疊層直條圖
 
@@ -74,7 +84,7 @@ EMOC資料（轉診人數）EDA
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/EDA/EMOC-EDA/EMOC-EDA.html)
 
-醫院指標EDA
+#### 醫院指標EDA
 
 -各醫院指標box-plot
 
