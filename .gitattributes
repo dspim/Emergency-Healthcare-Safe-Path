@@ -1,4 +1,2 @@
-*.Rd        linguist-vendored
-*.Rdx       linguist-vendored
-*.Rmd		linguist-vendored
-*.R  		linguist-vendored
+*.html        linguist-vendored
+
