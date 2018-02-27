@@ -40,6 +40,20 @@ EMOC_data為整理後表格，內容包含：
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.1_Exploratory%20Data/EMOC_example_chisquare.html)
 
+## 4.2 轉診原因分析
+
+原始資料轉院原因為「其他」者,佔了25%。「其他」一欄的補充說明,是可以一言以蔽之的
+具體形容,也可能是故事性敘述的概念。我們透過文字探索方式,歸納原始資料中轉院原因為
+「其他」的敘述性描述,可以發現許多筆資料可被歸類至各類別中,如:ICU、滿床、病房這
+些字眼敘述的是醫院空間量能不足,無法再容納新的急診病患。而「醫師」一詞,在敘述中具
+有顯著角色,如本院無XX科醫師,或XX科醫師建議等等,都會出現醫師一詞,但實務上卻可
+能代表不同意義。這類詞彙出現頻率,我們以文字雲方式呈現於[轉院原因文字分析圖]。某些
+頻繁出現的文字,也暗示未來進行智慧化語意分析的重點。
+
+![轉院原因文字分析圖](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/img/wordcloud.png)
+
+詳細分析:[R Markdown](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/Reasons%20for%20Referral.html)
+
 ## 4.3 急診轉診Sankey Diagram
 
 *Contributor: [Xniper](https://github.com/lwkuant)*
