@@ -3,12 +3,12 @@
 <p align="center">
 <img src=https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/cover.png>
  <br><br>
-<a>&nbsp;&nbsp;&nbsp;&nbsp;緊急醫療的處理首重於「適當時間將適當病人送至適當醫院」處置原則。</a>
-<a>然而，當病人醫療需求與提供之醫療資源無法在第一次就醫就媒合成功時，或可能會觸發院際轉診的行為。</a>
-<a>轉診行為有利有弊，或許可能讓病人得到更適切的醫療照護，但轉診過程所伴隨的潛在的風險，也應被仔細考慮。就整體社會安全網的系統觀點而言，轉診的浮現，在某種程度上也反應出緊急醫療過程中可能存在的照護缺口。若能釐清這問題，也許能讓我們對優化社區醫療配置與建構安全照護網絡有更明確的補強藍圖。</a>
 </p>
+緊急醫療的處理首重於「適當時間將適當病人送至適當醫院」處置原則。
+然而，當病人醫療需求與提供之醫療資源無法在第一次就醫就媒合成功時，或可能會觸發院際轉診的行為。
+轉診行為有利有弊，或許可能讓病人得到更適切的醫療照護，但轉診過程所伴隨的潛在的風險，也應被仔細考慮。就整體社會安全網的系統觀點而言，轉診的浮現，在某種程度上也反應出緊急醫療過程中可能存在的照護缺口。若能釐清這問題，也許能讓我們對優化社區醫療配置與建構安全照護網絡有更明確的補強藍圖。
 
-觀看[完整報告](http://d4sg.org/emergency-medical-optimization/)
+### 觀看[完整報告](http://d4sg.org/emergency-medical-optimization/)
 
 ## 4.1 EMOC資料探索  
 
@@ -39,6 +39,20 @@ EMOC_data為整理後表格，內容包含：
 二次轉診的患者於轉院後急診留置時間較單次轉診者平均需多花費3小時
 
 詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.1_Exploratory%20Data/EMOC_example_chisquare.html)
+
+## 4.2 轉診原因分析
+
+原始資料轉院原因為「其他」者,佔了25%。「其他」一欄的補充說明,是可以一言以蔽之的
+具體形容,也可能是故事性敘述的概念。我們透過文字探索方式,歸納原始資料中轉院原因為
+「其他」的敘述性描述,可以發現許多筆資料可被歸類至各類別中,如:ICU、滿床、病房這
+些字眼敘述的是醫院空間量能不足,無法再容納新的急診病患。而「醫師」一詞,在敘述中具
+有顯著角色,如本院無XX科醫師,或XX科醫師建議等等,都會出現醫師一詞,但實務上卻可
+能代表不同意義。這類詞彙出現頻率,我們以文字雲方式呈現於[轉院原因文字分析圖]。某些
+頻繁出現的文字,也暗示未來進行智慧化語意分析的重點。
+
+![轉院原因文字分析圖](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/img/wordcloud.png)
+
+詳細分析:[R Markdown](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/Reasons%20for%20Referral.html)
 
 ## 4.3 急診轉診Sankey Diagram
 
