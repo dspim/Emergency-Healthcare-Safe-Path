@@ -50,9 +50,9 @@ EMOC_data為整理後表格，內容包含：
 能代表不同意義。這類詞彙出現頻率,我們以文字雲方式呈現於[轉院原因文字分析圖]。某些
 頻繁出現的文字,也暗示未來進行智慧化語意分析的重點。
 
-![轉院原因文字分析圖](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/img/wordcloud.png)
+![轉院原因文字分析圖](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.2_Reasons%20for%20Referral/img/wordcloud.png)
 
-詳細分析:[R Markdown](https://github.com/nightheronry/Emergency-Healthcare-Safe-Path/blob/master/4.2_Reasons%20for%20Referral/Reasons%20for%20Referral.html)
+詳細分析:[R Markdown](https://nightheronry.github.io/Emergency-Healthcare-Safe-Path/4.2_Reasons%20for%20Referral/Reasons%20for%20Referral.html)
 
 ## 4.3 急診轉診Sankey Diagram
 
